@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+<h1 align="center">
+	Gallery Web App
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Gallery Web App** is a simple gallery web that consume from [Unsplash](https://unsplash.com) API.
 
-## Available Scripts
+## 🚀&nbsp; Installation
 
-In the project directory, you can run:
+1. Clone repository
 
-### `npm start`
+```shell
+$ git clone https://github.com/aangindra/gallery-web-app
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. Install packages
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```shell
+yarn
+```
 
-### `npm test`
+3. Copy the .env file
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```shell
+$ cp .env_default .env
+```
 
-### `npm run build`
+# Start application
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```shell
+$ yarn start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📫&nbsp; Have a question? Want to chat? Ran into a problem?
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+I'm very glad if you take a look in my [GitHub Repository](https://github.com/aangindra/gallery-web-app/discussions)! **and if you have problems related to bugs and errors**, please discuss in the repository and we will definitely read every discussion.
 
-### `npm run eject`
+## 📘&nbsp; License
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The Gallery Web App is released under the under terms of the [MIT License](LICENSE) [SOON].
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## ✨ Authors
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<table>
+  <tr>
+	<td align="center"><a href="https://github.com/aangindra"><img src="https://avatars.githubusercontent.com/u/50355424?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Indra Aang Fanani</b></sub></a><br /><a href="https://github.com/aangindra/gallery-web-app/commits?author=aangindra" title="Commits">📖</a></td>
+  </tr>
+</table>
