@@ -1,8 +1,9 @@
 import { Fragment, useEffect, useState, useMemo } from "react";
-import debounce from "lodash/debounce";
+import { debounce } from "lodash";
 import { showLoadingSpinner, hideLoadingSpinner } from "../App";
+import useInfiniteScroll from "../libs/useInfiniteScroll";
 
-const BASE_URL = "https://api.unsplash.com";
+const API_URL = "https://api.unsplash.com";
 const CLIENT_ID = "8f9fbd10d8bb0a7e69dd531aea77d5a0b84152b806286ed7f83f896c1987413b";
 
 const LIST_PAGE_SIZE = [
@@ -17,9 +18,13 @@ const Gallery = () => {
   const [queryParams, setQueryParams] = useState({
     query: "",
     page: 1,
-    per_page: 5
+    per_page: 5,
+    order_by: "popular"
   });
-
+  const [pagination, setPagination] = useState({
+    totalPage: 0,
+    currentPage: 1,
+  });
   const [selectedTag, setSelectedTag] = useState({})
 
   useEffect(() => {
@@ -34,7 +39,7 @@ const Gallery = () => {
   const getCollections = async () => {
     let params = { page: 1, per_page: 5 };
     params = Object.keys(params).map(key => key + '=' + params[key]).join('&');
-    let response = await fetch(`${BASE_URL}/collections?client_id=${CLIENT_ID}&${params}`);
+    let response = await fetch(`${API_URL}/collections?client_id=${CLIENT_ID}&${params}`);
     response = await response.json()
     setCollections(response);
   }
@@ -46,12 +51,22 @@ const Gallery = () => {
     let response;
     let results = []
     if (queryParams.query) {
-      response = await fetch(`${BASE_URL}/search/photos?client_id=${CLIENT_ID}&${params}`)
+      response = await fetch(`${API_URL}/search/photos?client_id=${CLIENT_ID}&${params}`)
       response = await response.json();
       results = response.results;
+      setPagination({
+        ...pagination,
+        totalPage: response.total_pages,
+        countData: response.total
+      })
     } else {
-      response = await fetch(`${BASE_URL}/photos?client_id=${CLIENT_ID}&${params}`)
+      response = await fetch(`${API_URL}/photos?client_id=${CLIENT_ID}&${params}`)
       results = await response.json();
+      setPagination({
+        ...pagination,
+        totalPage: 0,
+        countData: 0
+      })
     }
 
     setPhotos(results);
@@ -77,6 +92,7 @@ const Gallery = () => {
       per_page: parseInt(e.target.value)
     })
   };
+
   const handleSelectTag = (collection) => e => {
     setSelectedTag({
       ...collection
@@ -87,6 +103,67 @@ const Gallery = () => {
       per_page: 5
     })
   }
+
+  const fetchMoreDataThrottle = async () => {
+    showLoadingSpinner()
+    setPagination({
+      ...pagination,
+      currentPage: pagination.currentPage + 1
+    });
+
+    let response;
+    let results = [];
+    let newParams = {
+      ...queryParams,
+      page: pagination.currentPage + 1
+    }
+    newParams = Object.keys(newParams).map(key => key + '=' + newParams[key]).join('&');
+
+    if (pagination.totalPage === 0) {
+
+      if (queryParams.query) {
+        response = await fetch(`${API_URL}/search/photos?client_id=${CLIENT_ID}&${newParams}`)
+        response = await response.json();
+        // results = response.results;
+      } else {
+        response = await fetch(`${API_URL}/photos?client_id=${CLIENT_ID}&${newParams}`)
+        results = await response.json();
+        setPhotos([...photos, ...results])
+        setIsFetching(false)
+      }
+    } else {
+      if (pagination.currentPage === pagination.totalPage) {
+        setIsFetching(false);
+        return;
+      }
+
+      if (queryParams.query) {
+        response = await fetch(`${API_URL}/search/photos?client_id=${CLIENT_ID}&${newParams}`)
+        response = await response.json();
+        results = response.results;
+
+        setPagination({
+          ...pagination,
+          currentPage: pagination.currentPage + 1,
+          totalPage: response.total_pages,
+          countData: response.total
+        });
+        setPhotos([...photos, ...results])
+        setIsFetching(false)
+      } else {
+        response = await fetch(`${API_URL}/photos?client_id=${CLIENT_ID}&${newParams}`)
+        results = await response.json();
+        setPhotos([...photos, ...results])
+        setIsFetching(false)
+      }
+    }
+    hideLoadingSpinner();
+  }
+
+  const fetchMoreData = debounce(fetchMoreDataThrottle, 1500)
+
+  const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreData);
+  console.log("pagination", pagination)
   return (
     <Fragment>
       <div className="mx-auto bg-cornflower-blue-500 py-16">
@@ -119,6 +196,8 @@ const Gallery = () => {
             </div>
           ))}
         </div>
+        {(!photos || photos.length === 0) && <h2 className="text-3xl text-center font-600">Oops, no images found!</h2>}
+        {isFetching && <h2 className="text-3xl text-center font-600 mt-4">Fetch more images...</h2>}
       </div>
     </Fragment>
   );
