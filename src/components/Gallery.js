@@ -163,7 +163,6 @@ const Gallery = () => {
   const fetchMoreData = debounce(fetchMoreDataThrottle, 1500)
 
   const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreData);
-  console.log("pagination", pagination)
   return (
     <Fragment>
       <div className="mx-auto bg-cornflower-blue-500 py-16">
