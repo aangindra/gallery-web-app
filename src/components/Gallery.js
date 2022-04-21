@@ -71,7 +71,6 @@ const Gallery = () => {
 
     setPhotos(results);
     hideLoadingSpinner();
-
   };
 
   const handleSearch = e => {
@@ -104,7 +103,7 @@ const Gallery = () => {
     })
   }
 
-  const fetchMoreDataThrottle = async () => {
+  const fetchMoreData = async () => {
     showLoadingSpinner()
     setPagination({
       ...pagination,
@@ -160,14 +159,14 @@ const Gallery = () => {
     hideLoadingSpinner();
   }
 
-  const fetchMoreData = debounce(fetchMoreDataThrottle, 1500)
+  // const fetchMoreData = debounce(fetchMoreDataThrottle, 1500)
 
   const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreData);
   return (
     <Fragment>
       <div className="mx-auto bg-cornflower-blue-500 py-16">
         <h2 className="text-white text-2xl mb-8">Gallery Web-App</h2>
-        <input type="text" onChange={debouncedEventHandler} style={{ backgroundColor: "#f5f5f5" }} className="text-slate-700 py-2 px-4 w-full w-1/2 rounded-md shadow-lg outline-0" placeholder="Search with keyword, eg: cat, tree, macbook" />
+        <input data-testid="search-image" type="text" onChange={debouncedEventHandler} style={{ backgroundColor: "#f5f5f5" }} className="text-slate-700 py-2 px-4 w-full w-1/2 rounded-md shadow-lg outline-0" placeholder="Search with keyword, eg: cat, tree, macbook" />
         <div className="mx-auto mt-4 w-1/2">
           <h4 className="text-white mb-2">Popular tags:</h4>
           <div className="grid grid-cols-3 gap-2">
