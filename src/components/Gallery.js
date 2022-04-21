@@ -3,8 +3,8 @@ import { debounce } from "lodash";
 import { showLoadingSpinner, hideLoadingSpinner } from "../App";
 import useInfiniteScroll from "../libs/useInfiniteScroll";
 
-const API_URL = "https://api.unsplash.com";
-const CLIENT_ID = "8f9fbd10d8bb0a7e69dd531aea77d5a0b84152b806286ed7f83f896c1987413b";
+const API_URL = process.env.REACT_APP_API_URL;
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 
 const LIST_PAGE_SIZE = [
   5,
@@ -158,8 +158,6 @@ const Gallery = () => {
     }
     hideLoadingSpinner();
   }
-
-  // const fetchMoreData = debounce(fetchMoreDataThrottle, 1500)
 
   const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreData);
   return (

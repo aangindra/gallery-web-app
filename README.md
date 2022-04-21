@@ -30,6 +30,12 @@ $ cp .env_default .env
 $ yarn start
 ```
 
+# Test application
+
+```shell
+$ yarn test
+```
+
 ## 📫&nbsp; Have a question? Want to chat? Ran into a problem?
 
 I'm very glad if you take a look in my [GitHub Repository](https://github.com/aangindra/gallery-web-app/discussions)! **and if you have problems related to bugs and errors**, please discuss in the repository and we will definitely read every discussion.
